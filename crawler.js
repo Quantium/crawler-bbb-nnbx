@@ -8,7 +8,9 @@ var url = require('url');
 require('colors');
 
 var crawler = new Crawler('www.buybuybaby.com', '/');
-crawler.on('fetchcomplete', function(item, buffer) {
+crawler.on('fetchcomplete', function(item, buffer, response) {
+  if (!/text\/html/.test(response.headers['content-type'])) { return; }
+
   var item_url = url.parse(item.url);
   item_url = item_url.protocol + '//' + item_url.host + '/' + item_url.pathname;
 
@@ -35,7 +37,7 @@ crawler.on('fetchcomplete', function(item, buffer) {
     .then(function (link) {
       if (link) {
         // Parse product
-        if (/store\/product\/.+\/\d+$/.test(item.url)) {
+        if (/store\/product\/.+/.test(item.url)) {
           parseProduct(buffer.toString());
         }
 

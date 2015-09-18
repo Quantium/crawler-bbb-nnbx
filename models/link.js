@@ -6,11 +6,14 @@ var Schema = mongoose.Schema;
 var schema = new Schema({
   url: {
     type: String,
-    required: true
+    required: true,
+    index: {
+      unique: true
+    }
   },
-	depth: Number,
-	status: Number,
-	last_modified: String,
+  depth: Number,
+  status: Number,
+  last_modified: String,
   created_at: {
     type: Date,
     default: Date.now

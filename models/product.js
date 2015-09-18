@@ -11,7 +11,7 @@ var schema = new Schema({
   },
   categories: Array,
   description: String,
-  price: Number,
+  price: String,
   images: Array,
   created_at: {
     type: Date,
